@@ -44,11 +44,11 @@ def irradiance_data(season):
     t_hr = np.arange(0,10,1)
 
     if season == 'a':
-        #January 2nd, 2022, t = 900 - 1600
+        #January 2nd, 2022, t = 900 - 1800
         T_amb = 7.5 #C
         GHI_hr = np.array([366, 555, 691, 770, 767, 692, 552, 358, 137, 0])
     elif season == 'b':
-        #April 15th, 2022, t = 900 - 1600
+        #April 15th, 2022, t = 900 - 1800
         T_amb = 15 #C
         GHI_hr = np.array([696, 903, 1044, 1111, 1104, 1019, 865, 653, 403, 145])
     elif season == 'c':

@@ -1,7 +1,7 @@
 import numpy as np
 
 # Constants
-T_initial = 40  # °C
+T_initial = 40.5  # °C
 T_ambient = 7.5  # °C
 U_tank = 0.5  # W/m^2*K
 A_tank = 3.213  # m^2

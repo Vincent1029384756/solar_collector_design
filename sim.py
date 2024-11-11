@@ -54,7 +54,8 @@ coeff, T_ambient = tf.irradiance_data(season_selection)
 # List of collector areas to test
 collector_areas = np.arange(1, 15, 0.5)
 
-user_input_dir = '/home/wen-gu/solar_design/' + name
+#user_input_dir = '/home/wen-gu/solar_design/' + name
+user_input_dir = 'D:\my files\skule\solar_design' + name
 os.makedirs(user_input_dir, exist_ok=True)
 user_input_file = name + '.csv'
 
