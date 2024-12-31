@@ -4,41 +4,12 @@ import matplotlib.pyplot as plt
 import os
 import pandas as pd
 
-# Collect user inputs
+#collects user imputs
+#collects 
 print("###########################################################")
-print("Pick a solar collector type")
-print("a. Fafco Unglazed, plastic")
-print("b. Heliodyne Single glazed, copper, black paint")
-print("c. Heliodyne Single glazed, copper, selective absorber")
-print("d. Seido Evacuated glass tube, copper selective abs")
-collector = input("Make your selection: ").lower()
-valid_collectors = ['a', 'b', 'c', 'd']
-while collector not in valid_collectors:
-    collector = input("Invalid selection. Please pick a valid collector type (a, b, c, d): ").lower()
-
-if collector == 'a':
-    eta_slope = -15.47
-    eta_0 = 0.8216
-    U_collector = 8 #W/m2*k
-    name = 'unglazed'
-
-elif collector == 'b':
-    eta_slope = -6.08
-    eta_0 = 0.726
-    U_collector = 4 #W/m2*k
-    name = 'glazed_black'
-
-elif collector == 'c':
-    eta_slope = -4.57
-    eta_0 = 0.737
-    U_collector = 3 #W/m2*k
-    name = 'glazed_selective'
-
-elif collector == 'd':
-    eta_slope = -1.70
-    eta_0 = 0.529
-    U_collector = 1 #W/m2*k
-    name = 'evacuated_tube'
+dm_str = input("Define a pump flow rate (kg/s): ")
+name = dm_str
+dm = float(dm_str)
 
 #Determine ambient temperature and irradiance data
 print('Select what type of season to analyze:')
@@ -54,8 +25,8 @@ coeff, T_ambient = tf.irradiance_data(season_selection)
 # List of collector areas to test
 collector_areas = np.arange(1, 15, 0.5)
 
-#user_input_dir = '/home/wen-gu/solar_design/' + name
-user_input_dir = 'D:\my files\skule\solar_design' + name
+user_input_dir = '/home/wen-gu/solar_design/' + name
+#user_input_dir = 'D:\my files\skule\solar_design' + name
 os.makedirs(user_input_dir, exist_ok=True)
 user_input_file = name + '.csv'
 
@@ -83,6 +54,10 @@ L = 5  # m (Pipe length)
 D = 0.02  # m (diameter)
 f = 0.02  # friction factor
 
+#data of solar collector
+eta_slope = -6.08
+eta_0 = 0.726
+U_collector = 4 #W/m2*k
 
 # Simulation for each collector area
 for area in collector_areas:
@@ -104,10 +79,6 @@ for area in collector_areas:
         G = coeff[0] * (t_h**4) + coeff[1] * (t_h**3) + coeff[2] * (t_h**2) + coeff[3] * (t_h**1) + coeff[4]
 
         if not collector_empty:
-            # Calculate flow rate and energy interactions only if the collector is not empty
-            dT = T_collector - T_tank
-            dm = tf.calc_dm(H, rho, beta, dT, L, D, f)
-
             # Update collector efficiency
             eta = max(tf.calc_eta(eta_slope, eta_0, G, T_collector, T_ambient), 0)
 
